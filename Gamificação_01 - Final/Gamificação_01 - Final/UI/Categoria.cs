@@ -34,12 +34,12 @@ namespace JRJ.Modas
                     case "2":
                         CadastrarCategoria();
                         break;
-                    //case "3":
-                    //    AlterarCategoria();
-                    //    break;
-                    //case "4":
-                    //    ExcluirCategoria();
-                    //    break;
+                    case "3":
+                        AlterarCategoria();
+                        break;
+                    case "4":
+                        ExcluirCategoria();
+                        break;
                     case "0":
                         continuar = false;
                         break;
@@ -85,54 +85,54 @@ namespace JRJ.Modas
                 Console.WriteLine($"ID: {categoria.CategoriaID} | Guid: {categoria.CategoriaIDGUID} | Nome: {categoria.Nome}");
             }
         }
+
+
+
+
+        static void AlterarCategoria()
+        {
+            Console.Clear();
+            Console.WriteLine("Alteração de categoria:");
+            Console.Write("Digite o ID da categoria que deseja alterar: ");
+            int id = int.Parse(Console.ReadLine());
+            CategoriaModel categoria = _categorias.Find(c => c.Id == id);
+            if (categoria == null)
+            {
+                Console.WriteLine("Categoria não encontrada!");
+                return;
+            }
+            Console.Write($"Novo nome para a categoria {categoria.Nome}: ");
+            string nome = Console.ReadLine();
+            categoria.Nome = nome;
+
+            Console.WriteLine();
+            Console.WriteLine("Categoria alterada com sucesso!");
+        }
+
+        static void ExcluirCategoria()
+        {
+            Console.Clear();
+            Console.WriteLine("Exclusão de categoria:");
+            Console.Write("Digite o ID da categoria que deseja excluir: ");
+            int id = int.Parse(Console.ReadLine());
+            Categoria categoria = categorias.Find(c => c.Id == id);
+            if (categoria == null)
+            {
+                Console.WriteLine("Categoria não encontrada!");
+                return;
+            }
+            if (_produtos.Exists(p => p.CategoriaID == categoria.CategoriaID))
+            {
+                Console.WriteLine("Não é possível excluir a categoria, pois existem produtos vinculados a ela!");
+                return;
+            }
+            categorias.Remove(categoria);
+
+            Console.WriteLine();
+            Console.WriteLine("Categoria excluída com sucesso!");
+        }
     }
 }
+      
 
 
-
-//        static void AlterarCategoria()
-//        {
-//            Console.Clear();
-//            Console.WriteLine("Alteração de categoria:");
-//            Console.Write("Digite o ID da categoria que deseja alterar: ");
-//            int id = int.Parse(Console.ReadLine());
-//            CategoriaModel categoria = _categorias.Find(c => c.Id == id);
-//            if (categoria == null)
-//            {
-//                Console.WriteLine("Categoria não encontrada!");
-//                return;
-//            }
-//            Console.Write($"Novo nome para a categoria {categoria.Nome}: ");
-//            string nome = Console.ReadLine();
-//            categoria.Nome = nome;
-
-//            Console.WriteLine();
-//            Console.WriteLine("Categoria alterada com sucesso!");
-//        }
-
-//        static void ExcluirCategoria()
-//        {
-//            Console.Clear();
-//            Console.WriteLine("Exclusão de categoria:");
-//            Console.Write("Digite o ID da categoria que deseja excluir: ");
-//            int id = int.Parse(Console.ReadLine());
-//            Categoria categoria = categorias.Find(c => c.Id == id);
-//            if (categoria == null)
-//            {
-//                Console.WriteLine("Categoria não encontrada!");
-//                return;
-//            }
-//            if (produtos.Exists(p => p.Categoria.Id == categoria.Id))
-//            {
-//                Console.WriteLine("Não é possível excluir a categoria, pois existem produtos vinculados a ela!");
-//                return;
-//            }
-//            categorias.Remove(categoria);
-
-//            Console.WriteLine();
-//            Console.WriteLine("Categoria excluída com sucesso!");
-//        }
-//    }
-
-
-//}

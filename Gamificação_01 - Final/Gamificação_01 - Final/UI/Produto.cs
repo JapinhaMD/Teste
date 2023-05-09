@@ -31,17 +31,17 @@ namespace JRJ.Modas
                     case "1":
                         ListarProdutos();
                         break;
-                        //case "2":
-                        //    CadastrarProduto();
-                        //    break;
-                        //case "3":
-                        //    AlterarProduto();
-                        //    break;
-                        //case "4":
-                        //    ExcluirProduto();
-                        //    break;
-                        case "0":
-                            continuar = false;
+                    case "2":
+                        CadastrarProduto();
+                        break;
+                    case "3":
+                        AlterarProduto();
+                        break;
+                    case "4":
+                        ExcluirProduto();
+                        break;
+                    case "0":
+                        continuar = false;
                         break;
                     default:
                         Console.WriteLine("Opção inválida!");
@@ -61,94 +61,95 @@ namespace JRJ.Modas
                 Console.WriteLine($"ID: {produto.ProdutoID} | Nome: {produto.Nome} | Preço: {produto.Preco} | Categoria: {produto.Categoria.Nome}");
             }
         }
+
+
+
+
+        public void CadastrarProduto()
+        {
+            Console.Clear();
+            Console.WriteLine("Cadastro de produto:");
+
+            ProdutoUI produto = new ProdutoModel();
+
+            produto.ProdutoID = proximoIdProduto++;
+
+            Console.Write("Nome: ");
+            produto.Nome = Console.ReadLine();
+
+            Console.Write("Preço: ");
+            produto.Preco = double.Parse(Console.ReadLine());
+
+            Console.Write("ID da categoria: ");
+            int idCategoria = int.Parse(Console.ReadLine());
+            produto.Categoria = categorias.Find(c => c.Id == idCategoria);
+
+            _produtos.Add(produto);
+
+            Console.WriteLine("Produto cadastrado com sucesso!");
+        }
+
+        static void AlterarProduto()
+        {
+            Console.Clear();
+            Console.WriteLine("Alteração de produto:");
+
+            Console.Write("ID do produto: ");
+            int idProduto = int.Parse(Console.ReadLine());
+
+            Produto produto = produtos.Find(p => p.Id == idProduto);
+
+            if (produto != null)
+            {
+                Console.Write($"Nome ({produto.Nome}): ");
+                string nome = Console.ReadLine();
+                if (!string.IsNullOrEmpty(nome))
+                {
+                    produto.Nome = nome;
+                }
+
+                Console.Write($"Preço ({produto.Preco}): ");
+                string precoStr = Console.ReadLine();
+                if (!string.IsNullOrEmpty(precoStr))
+                {
+                    produto.Preco = double.Parse(precoStr);
+                }
+
+                Console.Write($"ID da categoria ({produto.Categoria.Id}): ");
+                string idCategoriaStr = Console.ReadLine();
+                if (!string.IsNullOrEmpty(idCategoriaStr))
+                {
+                    int idCategoria = int.Parse(idCategoriaStr);
+                    produto.Categoria = categorias.Find(c => c.Id == idCategoria);
+                }
+
+                Console.WriteLine("Produto alterado com sucesso!");
+            }
+            else
+            {
+                Console.WriteLine("Produto não encontrado!");
+            }
+        }
+
+        static void ExcluirProduto()
+        {
+            Console.Clear();
+            Console.WriteLine("Exclusão de produto:");
+
+            Console.Write("ID do produto: ");
+            int idProduto = int.Parse(Console.ReadLine());
+
+            ProdutoModel produto = _produtos.Find(p => p.ProdutoID == idProduto);
+
+            if (produto != null)
+            {
+                _produtos.Remove(produto);
+                Console.WriteLine("Produto excluído com sucesso!");
+            }
+            else
+            {
+                Console.WriteLine("Produto não encontrado!");
+            }
+        }
     }
 }
-
-
-    //public void CadastrarProduto()
-    //{
-    //    Console.Clear();
-    //    Console.WriteLine("Cadastro de produto:");
-
-    //    ProdutoUI produto = new ProdutoModel();
-
-    //    produto.ProdutoID = proximoIdProduto++;
-
-    //    Console.Write("Nome: ");
-    //    produto.Nome = Console.ReadLine();
-
-    //    Console.Write("Preço: ");
-    //    produto.Preco = double.Parse(Console.ReadLine());
-
-    //    Console.Write("ID da categoria: ");
-    //    int idCategoria = int.Parse(Console.ReadLine());
-    //    produto.Categoria = categorias.Find(c => c.Id == idCategoria);
-
-    //    _produtos.Add(produto);
-
-    //    Console.WriteLine("Produto cadastrado com sucesso!");
-    //}
-
-    //static void AlterarProduto()
-    //{
-    //    Console.Clear();
-    //    Console.WriteLine("Alteração de produto:");
-
-    //    Console.Write("ID do produto: ");
-    //    int idProduto = int.Parse(Console.ReadLine());
-
-    //    Produto produto = produtos.Find(p => p.Id == idProduto);
-
-    //    if (produto != null)
-    //    {
-    //        Console.Write($"Nome ({produto.Nome}): ");
-    //        string nome = Console.ReadLine();
-    //        if (!string.IsNullOrEmpty(nome))
-    //        {
-    //            produto.Nome = nome;
-    //        }
-
-    //        Console.Write($"Preço ({produto.Preco}): ");
-    //        string precoStr = Console.ReadLine();
-    //        if (!string.IsNullOrEmpty(precoStr))
-    //        {
-    //            produto.Preco = double.Parse(precoStr);
-    //        }
-
-    //        Console.Write($"ID da categoria ({produto.Categoria.Id}): ");
-    //        string idCategoriaStr = Console.ReadLine();
-    //        if (!string.IsNullOrEmpty(idCategoriaStr))
-    //        {
-    //            int idCategoria = int.Parse(idCategoriaStr);
-    //            produto.Categoria = categorias.Find(c => c.Id == idCategoria);
-    //        }
-
-    //        Console.WriteLine("Produto alterado com sucesso!");
-    //    }
-    //    else
-    //    {
-    //        Console.WriteLine("Produto não encontrado!");
-    //    }
-    //}
-
-//    static void ExcluirProduto()
-//    {
-//        Console.Clear();
-//        Console.WriteLine("Exclusão de produto:");
-
-//        Console.Write("ID do produto: ");
-//        int idProduto = int.Parse(Console.ReadLine());
-
-//        ProdutoModel produto = _produtos.Find(p => p.ProdutoID == idProduto);
-
-//        if (produto != null)
-//        {
-//            _produtos.Remove(produto);
-//            Console.WriteLine("Produto excluído com sucesso!");
-//        }
-//        else
-//        {
-//            Console.WriteLine("Produto não encontrado!");
-//        }
-//    }
-//}
